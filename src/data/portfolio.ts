@@ -13,7 +13,7 @@ export const site = {
   name: "Arjun Choudhary",
   title: "AI Automation & Business Systems Builder",
   description: "I design automation systems that connect APIs, AI, operational dashboards and business workflows—from lead intake and engagement to follow-up, reporting and handoff.",
-  url: "https://arjun-automation-portfolio.vegetarjun.chatgpt.site",
+  url: "https://arjun-automation-portfolio-jhld.vercel.app",
   github: "https://github.com/arjunschaudhary",
   linkedin: "https://www.linkedin.com/in/arjun-s-chaudhary-789535161",
   email: "arjunschoudhary.work@gmail.com",
