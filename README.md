@@ -2,6 +2,8 @@
 
 Public portfolio for Arjun Choudhary, positioned as an **AI Automation & Business Systems Builder**.
 
+**Live site:** [arjun-automation-portfolio-jhld.vercel.app](https://arjun-automation-portfolio-jhld.vercel.app)
+
 The site presents six sanitized system case studies, verified integration experience, architecture-led process visuals, and an interactive Solar EPC portfolio demo using synthetic data.
 
 ## Stack
