@@ -1,0 +1,155 @@
+export type Project = {
+  slug: string; priority: number; title: string; eyebrow: string; summary: string;
+  status: string; statusTone: "live" | "built" | "progress"; featured: boolean;
+  liveUrl?: string; demoLabel?: string; githubUrl?: string; stack: string[];
+  sources: string[]; flow: string[]; overview: string; problem: string; role: string;
+  logic: string[]; integrations: string[]; challenges: string[]; testing: string[];
+  result: string; decisions: string[];
+  metric?: { value: string; label: string; note: string };
+  branches?: { label: string; steps: string[] }[];
+};
+
+export const site = {
+  name: "Arjun Choudhary",
+  title: "AI Automation & Business Systems Builder",
+  description: "I design automation systems that connect APIs, AI, operational dashboards and business workflows—from lead intake and engagement to follow-up, reporting and handoff.",
+  url: "https://arjun-automation-portfolio.vegetarjun.chatgpt.site",
+  github: "https://github.com/arjunschaudhary",
+  linkedin: "https://www.linkedin.com/in/arjun-s-chaudhary-789535161",
+  email: "arjunschoudhary.work@gmail.com",
+};
+
+export const capabilities = ["AI Automation", "n8n", "APIs & Webhooks", "Business Process Automation", "CRM / Lead Operations", "AI Agents", "Google Workspace Automation", "Dashboards", "Apps Script", "Data Pipelines"];
+
+export const projects: Project[] = [
+  {
+    slug: "solar-epc-operations-command-center", priority: 1,
+    title: "Solar EPC Operations Command Center", eyebrow: "Flagship operations system",
+    summary: "A protected operations system connecting enquiry intake, validation, ownership, site visits, versioned proposals, approvals, delivery queues and management visibility.",
+    status: "Deployed privately · portfolio demo available", statusTone: "live", featured: true,
+    demoLabel: "Open interactive demo",
+    stack: ["Next.js", "n8n", "Google Sheets", "Apps Script", "Gmail", "Calendar", "Drive", "Docs"],
+    sources: ["Form intake", "Protected web app"],
+    flow: ["Validate & dedupe", "Lead intelligence", "Assign owner", "Follow up", "Site visit", "Version proposal", "Human approval", "Deliver & track"],
+    overview: "The command center turns a multi-stage Solar EPC process into one traceable operating flow. The live application is private; this case study recreates the interface and data with synthetic records.",
+    problem: "Enquiries, follow-ups, site activity, proposal revisions and handoffs can fragment across forms, sheets, documents and inboxes. The system needed a shared operational state without allowing automation to bypass important approvals.",
+    role: "I designed the V2 system architecture, built the protected interface and Apps Script bridge, connected the Google Workspace and n8n layers, and tested the end-to-end operating paths.",
+    logic: ["Reject incomplete or duplicate enquiries before downstream work begins.", "Create explicit ownership and next-action records for every active lead.", "Keep proposal versions traceable and require approval before delivery.", "Use idempotency and delivery keys to prevent duplicate actions.", "Route uncertain sends to review instead of retrying blindly."],
+    integrations: ["n8n", "Google Sheets", "Apps Script", "Gmail", "Google Calendar", "Google Drive", "Google Docs / PDF", "Vercel"],
+    challenges: ["Maintaining consistent state across a web interface, spreadsheet records and asynchronous workers.", "Separating test and live behavior so verification could not accidentally contact a real recipient.", "Making retries safe when an external provider response was incomplete or uncertain."],
+    testing: ["32 automated checks across routing, data validation and core UI behavior.", "End-to-end tests for Gmail, Calendar, Drive, Docs/PDF and the Apps Script bridge.", "Responsive checks across desktop and mobile layouts."],
+    result: "The private system is deployed and the core Google Workspace delivery paths have been validated. The public representation below uses synthetic data and excludes production links, identifiers and configuration.",
+    decisions: ["Keep the spreadsheet as an auditable operational record while the web layer improves usability.", "Model delivery as a queue with Pending, Claimed, Sending, Sent, Needs review and Cancelled states.", "Preserve human approval at the proposal release point."],
+    metric: { value: "32", label: "automated checks", note: "Verified in the current private repository documentation." },
+  },
+  {
+    slug: "hr-lifecycle-recruitment-operations", priority: 2,
+    title: "HR Lifecycle / Recruitment Operations System", eyebrow: "Role-based lifecycle application",
+    summary: "A production HR operations application spanning candidate intake, reviews, offers, active-intern operations, leave, performance and exit documentation.",
+    status: "Production deployment · protected access", statusTone: "live", featured: true,
+    liveUrl: "https://hr-funnel.vercel.app", demoLabel: "Open live application",
+    githubUrl: "https://github.com/arjunschaudhary/hr-lifecycle-hosted",
+    stack: ["React", "Vite", "Supabase", "Vercel", "Role-based access", "Storage"],
+    sources: ["Candidate form", "HR review"],
+    flow: ["Candidate intake", "Lead review", "Probation", "Offer approval", "Active intern", "Leave & performance", "Exit evaluation", "Certificate / LOR"],
+    overview: "This is a lifecycle system rather than a single recruitment funnel. Protected workspaces support distinct candidate, lead, pod and HR responsibilities from intake through exit.",
+    problem: "Recruitment and internship operations required multiple roles to coordinate reviews, offers, signed documents, performance, leave and exit records without mixing permissions or losing stage history.",
+    role: "I defined workflow stages, statuses, tables, automation and integration documentation, then collaborated on frontend implementation, integration and testing.",
+    logic: ["Route users to workspaces based on role and allowed lifecycle actions.", "Track offer approval, issue and signed-offer verification as distinct states.", "Connect active-intern records to pod, leave and performance workflows.", "Move exits through evaluation and controlled document issuance."],
+    integrations: ["React", "Supabase Auth", "Postgres", "Supabase Storage", "Vercel", "Protected routes"],
+    challenges: ["Coordinating lifecycle transitions across users with different responsibilities.", "Keeping public candidate entry points separate from protected operational routes.", "Handling signed-document resubmission and verification without overwriting audit history."],
+    testing: ["Role-based route and permission checks.", "Offer, signed-document, leave, performance and exit path verification.", "Public deployment checked at the protected login boundary."],
+    result: "The application is live behind authentication. Its public landing page exposes no candidate or employee data; access remains role controlled.",
+    decisions: ["Treat each lifecycle transition as an explicit status rather than a hidden UI action.", "Keep identity, operational records and documents behind authenticated routes.", "Show the production entry point while keeping all sample credentials out of the portfolio."],
+  },
+  {
+    slug: "lead-360-ai-calling-intelligence", priority: 3,
+    title: "Lead 360 & AI Calling Intelligence System", eyebrow: "Unified lead context + AI operations",
+    summary: "A unified lead profile combining website, Meta and webinar engagement, then applying qualification rules before an AI calling assistant receives context.",
+    status: "Dashboard and assistant built · connection testing in progress", statusTone: "progress", featured: true,
+    stack: ["n8n", "Zoho", "WebinarJam", "Meta", "AI calling", "Google Sheets"],
+    sources: ["Website", "Meta", "Webinar platform"],
+    flow: ["Standardize data", "Build Lead 360", "Score engagement", "Apply eligibility", "Add knowledge context", "AI calling agent", "Classify outcome", "Update CRM"],
+    overview: "The system replaces disconnected channel records with a single operational view of identity, source, registrations, attendance, minutes joined, repeat engagement, reminders, stage history and follow-up activity.",
+    problem: "A calling workflow cannot make responsible decisions from a phone number alone. Acquisition, attendance and engagement signals first had to be reconciled into one current profile.",
+    role: "I designed the cross-channel schema and qualification flow, built the dashboard layer, prepared the AI calling assistant and defined how outcomes return to operational systems.",
+    logic: ["Resolve and merge identities across website, Meta and webinar records.", "Retain channel-specific journey history instead of flattening it into one score.", "Apply eligibility and exclusion rules before a call can be queued.", "Provide offer knowledge, FAQs, guidance, lead history and escalation rules to the assistant.", "Write classified outcomes and next actions back to the dashboard or CRM."],
+    integrations: ["Zoho", "WebinarJam API", "Meta data", "n8n", "AI calling platform", "AppSheet", "Google Sheets"],
+    challenges: ["Identity reconciliation across partially overlapping sources.", "Giving the agent enough context while restricting unnecessary personal data.", "Making exclusion and stop rules observable before production calling begins."],
+    testing: ["Source reconciliation and duplicate checks across channel imports.", "Eligibility filters tested before calling handoff.", "Assistant configuration completed; final connection and call-flow validation remains in progress."],
+    result: "A verified snapshot contained 2,275 unified profiles: about 1,339 webinar-linked, 1,512 Meta-linked and 1,021 website-linked. Source counts overlap because one person may engage across channels.",
+    decisions: ["Separate profile assembly, qualification and calling into auditable stages.", "Use structured knowledge plus lead context so the agent does not call blindly.", "Describe current rollout honestly: the data layer and assistant are built; connection testing is still underway."],
+    metric: { value: "2,275", label: "unified lead profiles", note: "Verified snapshot; channel counts overlap." },
+  },
+  {
+    slug: "webinar-engagement-automation-platform", priority: 4,
+    title: "Webinar Engagement Automation Platform", eyebrow: "Event-driven engagement operations",
+    summary: "Registration, timed reminders, attendance retrieval, joined-minute tracking and post-webinar journeys operating as one coherent system.",
+    status: "Core workflows built · ongoing refinements", statusTone: "built", featured: true,
+    stack: ["n8n", "WebinarJam", "Email", "WhatsApp", "Google Sheets"],
+    sources: ["Registration", "Scheduled jobs"],
+    flow: ["Sync registration", "Build reminder queue", "Send email + WhatsApp", "Retrieve attendance", "Classify joined / missed", "Update dashboard", "Follow up or re-invite"],
+    overview: "Multiple webinar automations are presented here as one operating platform: a participant moves from registration to reminders, attendance reconciliation and the appropriate next journey.",
+    problem: "Reminder and follow-up workflows break when registration, attendance and communication systems disagree. The platform needed a single participant state and clear stop rules.",
+    role: "I designed and built registration sync, reminder queues, attendance reconciliation, historical joined-minute retrieval, post-webinar paths and dashboard updates.",
+    logic: ["Generate timed reminder queues from the current registration state.", "Use personalized event links where supported.", "Reconcile joined, not-joined and minutes-attended after the event.", "Stop unnecessary reminders when attendance or lifecycle status changes.", "Route eligible missed attendees into nurturing or re-invite paths."],
+    integrations: ["n8n", "WebinarJam API / webhooks", "Email", "WhatsApp bot/API", "Google Sheets", "Operational dashboards"],
+    challenges: ["Reconciling late API updates with scheduled communication windows.", "Avoiding duplicate reminders across overlapping event cycles.", "Preserving historical attendance while keeping the current action obvious."],
+    testing: ["Registration and reminder-queue test records.", "Attendance and joined-minute reconciliation checks.", "Stop-rule and post-webinar routing validation."],
+    result: "The core registration, reminder, attendance and dashboard paths were built across several delivery phases. Some platform and bot refinements remain ongoing.",
+    decisions: ["Model the participant journey as one stateful platform.", "Keep provider-specific details behind a normalized attendee record.", "Use explicit stop rules at every scheduled send."],
+  },
+  {
+    slug: "lead-status-follow-up-automation-engine", priority: 5,
+    title: "Lead Status Follow-up Automation Engine", eyebrow: "State-driven communication system",
+    summary: "A status engine that chooses the correct follow-up journey, schedules communication, monitors responses and stops or escalates safely.",
+    status: "Built and tested across status journeys", statusTone: "built", featured: false,
+    stack: ["n8n", "CRM webhooks", "WhatsApp API", "Schedulers", "Dashboards"],
+    sources: ["CRM status", "Webhook intake"],
+    flow: ["Normalize status", "Select journey", "Schedule action", "Send in allowed window", "Check response", "Update state", "Continue, escalate or stop"],
+    overview: "The engine translates a CRM status into a controlled series of operational actions rather than treating every lead as the same sequence.",
+    problem: "Different lead states require different timing, messaging, document requests and human attention. Static campaigns create duplicate, mistimed or irrelevant outreach.",
+    role: "I designed status-to-journey rules, follow-up timing, WhatsApp/API delivery, document-request paths, stop conditions and operational tracking.",
+    logic: ["Map each accepted CRM status to a defined journey.", "Send only inside controlled windows.", "Check current state before every staged follow-up.", "Escalate exceptions and human-required actions.", "Use duplicate keys and stop conditions to prevent repeated outreach."],
+    integrations: ["CRM webhooks", "n8n", "WhatsApp/API", "Google Sheets", "Operational logs"],
+    challenges: ["Preventing a delayed task from acting on an outdated status.", "Balancing automation with human intervention paths.", "Making scheduling and suppression decisions easy to audit."],
+    testing: ["Synthetic status transitions across each journey.", "Duplicate-webhook and delayed-job checks.", "Response, escalation and stop-condition tests."],
+    result: "The engine was built and tested with sanitized status journeys. Public diagrams use generic labels and synthetic records.",
+    decisions: ["Re-check status immediately before sending.", "Treat suppression as a first-class state.", "Keep communication history separate from the current next action."],
+  },
+  {
+    slug: "b2b-partnership-lifecycle-automation", priority: 6,
+    title: "B2B Partnership Lifecycle Automation", eyebrow: "Human-in-the-loop business process",
+    summary: "A partnership journey from prospect validation and controlled outreach to reply routing, meetings, human approval and agreement signature.",
+    status: "Built and validated in testing · awaiting production rollout", statusTone: "progress", featured: false,
+    stack: ["n8n", "Gmail", "Google Calendar", "Odoo Sign", "Forms", "Document generation"],
+    sources: ["Prospect database", "Reply inbox"],
+    flow: ["Validate prospect", "Assign sender", "Send controlled outreach", "Detect reply", "Classify intent", "Route next action"],
+    overview: "This is not just an outbound email sequence. It manages the operational journey after a reply while retaining human control over high-impact agreement actions.",
+    problem: "Partnership outreach creates several distinct paths—meeting, agreement, query, rejection or unsubscribe. Each requires different suppression, routing and record updates.",
+    role: "I built the outreach, reply-monitoring, classification, calendar detection, information collection, approval, personalized document and signature workflow.",
+    logic: ["Respect per-sender limits and suppression records.", "Stop scheduled follow-ups as soon as a reply or booking is detected.", "Classify replies into meeting, partnership, query, not-interested and unsubscribe paths.", "Require a designated human to approve the agreement process.", "Generate and send the agreement only after approval."],
+    integrations: ["n8n", "Gmail", "Google Calendar", "Forms", "Google Docs / PDF", "Odoo Sign", "Activity logs"],
+    challenges: ["Coordinating multiple sender inboxes and limits.", "Suppressing future outreach when a meeting is booked outside the email thread.", "Automating document preparation without automating the business approval itself."],
+    testing: ["Synthetic prospect and reply scenarios.", "Meeting-detection and suppression checks.", "Agreement preparation, approval and Odoo Sign handoff validation."],
+    result: "The system was built and validated in testing/prototype. It has not yet produced live outreach performance metrics and is described as awaiting production rollout.",
+    decisions: ["Retain human approval before agreement execution.", "Make unsubscribe and not-interested paths terminal.", "Automate preparation and routing around—not instead of—the accountable human decision."],
+    branches: [{ label: "Meeting", steps: ["Reply", "Booking link", "Calendar booking", "Suppress outreach"] }, { label: "Partnership", steps: ["Collect details", "Human approval", "Prepare agreement", "Odoo Sign"] }, { label: "Stop / route", steps: ["Not interested", "Unsubscribe", "General query", "Update record"] }],
+  },
+];
+
+export const exploring = [
+  { title: "Instagram Automation", text: "Meta Developer APIs, webhooks, comment-to-DM journeys and resource delivery within platform restrictions." },
+  { title: "Freshdesk Communication Consolidation", text: "A shared communication history across WhatsApp, email, webinar forms and feedback for Sales and Delivery views." },
+  { title: "Knowledge Source Aggregation & AI Retrieval", text: "Source inventory, automated ingestion and a centralized knowledge layer for future grounded AI retrieval." },
+  { title: "AI Blog Production System", text: "Research, SEO architecture, source grounding, internal linking, content generation, images and quality checks—still in development." },
+];
+
+export const integrationGroups = [
+  { label: "Automation", items: ["n8n", "Apps Script", "Webhooks", "Schedulers"] },
+  { label: "AI", items: ["OpenAI", "Gemini", "AI calling assistants"] },
+  { label: "Data & operations", items: ["Google Sheets", "AppSheet", "Zoho", "Supabase"] },
+  { label: "Communication", items: ["Gmail", "WhatsApp APIs", "WebinarJam", "Freshdesk exploration"] },
+  { label: "Workspace & documents", items: ["Google Docs", "Drive", "Calendar", "Odoo Sign"] },
+  { label: "Applications", items: ["React", "Next.js", "TypeScript", "Vercel"] },
+];
