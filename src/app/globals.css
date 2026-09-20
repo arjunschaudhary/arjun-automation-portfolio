@@ -206,7 +206,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .how-work-section { padding-bottom: 50px; }
 .how-work-heading { display: flex; align-items: end; justify-content: space-between; gap: 45px; margin-bottom: 28px; }
 .how-work-heading h2 { margin: 7px 0 0; font-size: clamp(34px,4.4vw,52px); line-height: 1.08; letter-spacing: -.025em; }
-.how-work-title { display: inline-flex; gap: .24em; }
+.how-work-title { display: flex; width: max-content; gap: .24em; }
 .how-work-heading > p { max-width: 510px; margin: 0; color: var(--muted); font-size: 17px; }
 .work-flow { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 10px; }
 .work-node { position: relative; min-height: 190px; padding: 20px; border: 1px solid var(--line); border-radius: 17px; background: linear-gradient(160deg,#0d1a14,#09110d); }
@@ -216,7 +216,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .work-node h3 { margin: 31px 0 8px; font-size: 17px; line-height: 1.25; letter-spacing: -.015em; }
 .work-node p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
 .principles-section { padding: 34px; border: 1px solid var(--line); border-radius: 20px; background: #09110d; }
-.principles-heading { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 26px; }
+.principles-heading { margin-bottom: 26px; }
 .principles-heading h2 { max-width: 560px; margin: 7px 0 0; font-size: clamp(27px,3.2vw,38px); line-height: 1.12; letter-spacing: -.03em; }
 .principle-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; }
 .principle-control { min-width: 0; padding: 18px; border-radius: 15px; background: #101b16; }
