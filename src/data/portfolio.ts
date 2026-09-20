@@ -19,7 +19,7 @@ export const site = {
   email: "arjunschoudhary.work@gmail.com",
 };
 
-export const capabilities = ["AI Automation", "n8n", "APIs & Webhooks", "Business Process Automation", "CRM / Lead Operations", "AI Agents", "Google Workspace Automation", "Dashboards", "Apps Script", "Data Pipelines"];
+export const capabilities = ["AI Automation", "n8n & Workflow Automation", "APIs & Webhooks", "Business Process Automation", "AI Agents", "Data & Operational Systems"];
 
 export const projects: Project[] = [
   {

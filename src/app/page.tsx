@@ -10,7 +10,7 @@ export default function HomePage() {
   return <main>
     <section className="hero section-pad"><div className="shell hero-grid">
       <div className="hero-copy"><span className="availability"><i /> Open to automation and business systems roles</span><p className="hero-name">Arjun Choudhary</p><h1>AI Automation &amp;<br />Business Systems Builder</h1><p className="hero-lede">I design automation systems that connect APIs, AI, operational dashboards and business workflows—from lead intake and engagement to follow-up, reporting and handoff.</p><div className="hero-actions"><Link className="button button-primary" href="/projects">Explore systems <ArrowRight size={16} /></Link><Link className="button button-secondary" href="/contact">Discuss an opportunity</Link></div></div>
-      <div className="hero-panel"><span className="panel-kicker">Operating model</span><SystemMap /></div>
+      <div className="hero-panel"><span className="panel-kicker">Operating model</span><h2 className="panel-title">From signal to action</h2><SystemMap /></div>
     </div></section>
     <section className="capability-strip" aria-label="Core capabilities"><div className="shell capability-row">{capabilities.map((capability) => <span key={capability}>{capability}</span>)}</div></section>
     <section className="section-pad"><div className="shell">

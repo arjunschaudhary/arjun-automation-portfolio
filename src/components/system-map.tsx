@@ -1,40 +1,37 @@
 import { ArrowDown, ArrowRight, Database, GitBranch, ShieldCheck, Sparkles, Workflow } from "lucide-react";
 
-const stages = [
-  { label: "Data sources", note: "Forms, APIs, CRM and events", icon: Database },
-  { label: "Automation", note: "Normalize, schedule and sync", icon: Workflow },
-  { label: "Business logic", note: "Qualify, branch and suppress", icon: GitBranch },
-  { label: "AI + human decisions", note: "Context, review and approval", icon: Sparkles },
-  { label: "Operational output", note: "Dashboards, follow-up and handoff", icon: ShieldCheck },
+const source = { number: "01", label: "Signals & Data", note: "Forms · APIs · CRM · Events", icon: Database };
+const processing = [
+  { number: "02", label: "Normalize", note: "Clean · Dedupe · Structure", icon: Workflow },
+  { number: "03", label: "Apply Logic", note: "Rules · Eligibility · Routing", icon: GitBranch },
+  { number: "04", label: "AI + Human Review", note: "Context · Judgment · Approval", icon: Sparkles },
 ];
+const output = { number: "05", label: "Operational Action", note: "Follow-up · Dashboards · Handoff", icon: ShieldCheck };
+
+function SystemNode({ stage, className = "" }: {
+  stage: typeof source;
+  className?: string;
+}) {
+  const Icon = stage.icon;
+
+  return <div className={`system-node ${className}`}>
+    <div className="system-node-top"><span className="system-step">{stage.number}</span><Icon size={18} /></div>
+    <strong>{stage.label}</strong>
+    <small>{stage.note}</small>
+  </div>;
+}
 
 export function SystemMap() {
-  const SourceIcon = stages[0].icon;
-  const OutputIcon = stages[4].icon;
-
   return <div className="system-map" aria-label="How Arjun builds operational systems">
-    <div className="system-edge-node">
-      <span className="system-step">01 · Input</span>
-      <SourceIcon size={21} />
-      <strong>{stages[0].label}</strong>
-      <small>{stages[0].note}</small>
-    </div>
-    <ArrowRight className="system-direction system-direction-right" size={20} aria-hidden="true" />
-    <ArrowDown className="system-direction system-direction-down" size={20} aria-hidden="true" />
-    <div className="system-core">
-      {stages.slice(1, 4).map((stage, index) => <div className="system-core-step" key={stage.label}>
-        <stage.icon size={18} />
-        <div><span className="system-step">0{index + 2}</span><strong>{stage.label}</strong><small>{stage.note}</small></div>
-        {index < 2 && <ArrowDown className="core-arrow" size={15} aria-hidden="true" />}
+    <SystemNode stage={source} className="system-node-edge" />
+    <ArrowDown className="system-flow-arrow" size={18} aria-hidden="true" />
+    <div className="system-middle-row">
+      {processing.map((stage, index) => <div className="system-middle-item" key={stage.label}>
+        <SystemNode stage={stage} />
+        {index < processing.length - 1 && <ArrowRight className="system-middle-arrow" size={16} aria-hidden="true" />}
       </div>)}
     </div>
-    <ArrowRight className="system-direction system-direction-right" size={20} aria-hidden="true" />
-    <ArrowDown className="system-direction system-direction-down" size={20} aria-hidden="true" />
-    <div className="system-edge-node system-output-node">
-      <span className="system-step">05 · Output</span>
-      <OutputIcon size={21} />
-      <strong>{stages[4].label}</strong>
-      <small>{stages[4].note}</small>
-    </div>
+    <ArrowDown className="system-flow-arrow" size={18} aria-hidden="true" />
+    <SystemNode stage={output} className="system-node-edge system-output-node" />
   </div>;
 }

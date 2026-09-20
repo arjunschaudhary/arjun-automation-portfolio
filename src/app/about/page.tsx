@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { CheckCircle2, Database, GitBranch, Network, ScanSearch, ShieldCheck } from "lucide-react";
-import { capabilities, integrationGroups } from "@/data/portfolio";
+import { BadgeCheck, CopyCheck, Database, GitBranch, Network, Route, ScanSearch, ShieldCheck, UserCheck } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About",
@@ -8,11 +7,10 @@ export const metadata: Metadata = {
 };
 
 const principles = [
-  "Understand the process before selecting tools.",
-  "Normalize data before applying AI or business rules.",
-  "Design retries, deduplication and suppression early.",
-  "Retain human approval for high-impact actions.",
-  "Test the full handoff, not only the happy path.",
+  { title: "Validate early", text: "Clean inputs before downstream automation.", icon: BadgeCheck },
+  { title: "Prevent duplicates", text: "Use deduplication, idempotency and suppression.", icon: CopyCheck },
+  { title: "Keep human approval", text: "High-impact decisions remain human-controlled.", icon: UserCheck },
+  { title: "Test failure paths", text: "Design retries, edge cases and handoffs deliberately.", icon: Route },
 ];
 
 const workSteps = [
@@ -37,7 +35,7 @@ export default function AboutPage() {
         <div className="shell">
           <section className="how-work-section" aria-labelledby="how-i-work">
             <div className="how-work-heading">
-              <div><span className="eyebrow">Working method</span><h2 id="how-i-work">How I work</h2></div>
+              <div><span className="eyebrow">Working method</span><h2 className="how-work-title" id="how-i-work" aria-label="How I work"><span aria-hidden="true">How</span><span aria-hidden="true">I</span><span aria-hidden="true">work</span></h2></div>
               <p>I turn the operating process into a visible, testable system—from first input to final handoff.</p>
             </div>
             <div className="work-flow" aria-label="Five-step system building process">
@@ -48,17 +46,14 @@ export default function AboutPage() {
               </article>)}
             </div>
           </section>
-          <article className="principle-card principle-card-wide">
-            <div><span className="eyebrow">Build principles</span><h2>Controls designed in from the start.</h2></div>
-            <ul>{principles.map((item) => <li key={item}><CheckCircle2 />{item}</li>)}</ul>
-          </article>
-          <div className="about-capabilities">
-            <span className="eyebrow">Core capabilities</span>
-            <div>{capabilities.map((item) => <span key={item}>{item}</span>)}</div>
-          </div>
-          <div className="integration-grid about-integrations">
-            {integrationGroups.map((group) => <article key={group.label}><h3>{group.label}</h3><ul>{group.items.map((item) => <li key={item}><CheckCircle2 size={15} />{item}</li>)}</ul></article>)}
-          </div>
+          <section className="principles-section" aria-labelledby="build-principles">
+            <div className="principles-heading"><span className="eyebrow">Build principles</span><h2 id="build-principles">Controls designed in from the start.</h2></div>
+            <div className="principle-grid">{principles.map((principle) => <article className="principle-control" key={principle.title}>
+              <principle.icon size={20} />
+              <h3>{principle.title}</h3>
+              <p>{principle.text}</p>
+            </article>)}</div>
+          </section>
         </div>
       </section>
     </main>
