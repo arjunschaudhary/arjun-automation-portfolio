@@ -63,16 +63,16 @@ export async function POST(request: Request) {
     });
     if (!result.ok) {
       console.error("Contact email provider returned status", result.status);
-      return response("The message could not be sent right now. Please use the email link instead.", 502);
+      return response(`Email service rejected the message (status ${result.status}). Please use the email link instead.`, 502);
     }
-    const outcome: unknown = await result.json();
+    const outcome: unknown = await result.json().catch(() => null);
     if (!outcome || typeof outcome !== "object" || !("success" in outcome) || ![true, "true"].includes(outcome.success as boolean | string)) {
       console.error("Contact email provider did not confirm submission");
-      return response("The message could not be sent right now. Please use the email link instead.", 502);
+      return response("Email service did not confirm the message. Please use the email link instead.", 502);
     }
     return Response.json({ ok: true }, { headers: { "Cache-Control": "no-store" } });
   } catch {
     console.error("Contact email provider request failed");
-    return response("The message could not be sent right now. Please use the email link instead.", 502);
+    return response("Could not connect to the email service. Please use the email link instead.", 502);
   }
 }
