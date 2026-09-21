@@ -45,25 +45,27 @@ export async function POST(request: Request) {
     return response("Please complete the required fields with a valid name, email and message.", 400);
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const sender = process.env.CONTACT_FROM_EMAIL;
-  if (!apiKey || !sender) return response("The form is temporarily unavailable. Please use the email link instead.", 503);
-
   try {
-    const result = await fetch("https://api.resend.com/emails", {
+    const result = await fetch(`https://formsubmit.co/ajax/${site.email}`, {
       method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({
-        from: sender,
-        to: [site.email],
-        reply_to: email,
-        subject: "New portfolio contact",
-        text: `Name: ${name}\nEmail: ${email}\nCompany / Organization: ${company || "Not provided"}\n\nMessage:\n${message}`,
+        name,
+        email,
+        company: company || "Not provided",
+        message,
+        _subject: "New portfolio contact",
+        _captcha: "false",
       }),
       signal: AbortSignal.timeout(10_000),
     });
     if (!result.ok) {
       console.error("Contact email provider returned status", result.status);
+      return response("The message could not be sent right now. Please use the email link instead.", 502);
+    }
+    const outcome: unknown = await result.json();
+    if (!outcome || typeof outcome !== "object" || !("success" in outcome) || ![true, "true"].includes(outcome.success as boolean | string)) {
+      console.error("Contact email provider did not confirm submission");
       return response("The message could not be sent right now. Please use the email link instead.", 502);
     }
     return Response.json({ ok: true }, { headers: { "Cache-Control": "no-store" } });

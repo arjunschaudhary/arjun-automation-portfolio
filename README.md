@@ -29,9 +29,9 @@ pnpm build
 
 ## Contact form
 
-The Contact page posts to `/api/contact`, which uses Resend to deliver plain-text messages to the portfolio email address. The API key stays server-side; visitors' addresses are used only as Reply-To. The route validates fields, checks a honeypot and submission timing, and restricts browser requests to the site's own origin.
+The Contact page posts to `/api/contact`, which forwards validated submissions to FormSubmit for email delivery to the portfolio address. The provider uses visitors' addresses as Reply-To. The route checks a honeypot and submission timing, and restricts browser requests to the site's own origin.
 
-To enable delivery, verify a sending domain in [Resend](https://resend.com/domains), create a sending API key, and set `RESEND_API_KEY` and `CONTACT_FROM_EMAIL` (for example, `Portfolio <contact@yourdomain.com>`) in Vercel's server-side environment settings. Use the same values in `.env.local` for local development; `.env.example` lists them without real credentials. Redeploy after setting production variables. Until configured, the form shows an error and the existing email link remains available.
+No sending domain or API key is required. The first submission triggers an activation email to the portfolio address; the mailbox owner must confirm it before visitor messages are delivered. The contact email link remains available as a fallback.
 
 ## Privacy
 
