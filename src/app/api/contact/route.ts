@@ -46,17 +46,19 @@ export async function POST(request: Request) {
   }
 
   try {
+    // FormSubmit's AJAX endpoint documents form fields, not a JSON request body.
+    const form = new URLSearchParams({
+      name,
+      email,
+      company: company || "Not provided",
+      message,
+      _subject: "New portfolio contact",
+      _captcha: "false",
+    });
     const result = await fetch(`https://formsubmit.co/ajax/${site.email}`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({
-        name,
-        email,
-        company: company || "Not provided",
-        message,
-        _subject: "New portfolio contact",
-        _captcha: "false",
-      }),
+      headers: { "Content-Type": "application/x-www-form-urlencoded", Accept: "application/json" },
+      body: form,
       signal: AbortSignal.timeout(10_000),
     });
     if (!result.ok) {
