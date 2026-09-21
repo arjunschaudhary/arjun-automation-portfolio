@@ -45,30 +45,36 @@ export async function POST(request: Request) {
     return response("Please complete the required fields with a valid name, email and message.", 400);
   }
 
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.error("Contact email service is not configured");
+    return response("The contact form is temporarily unavailable. Please use the email link instead.", 503);
+  }
+
   try {
-    // FormSubmit's AJAX endpoint documents form fields, not a JSON request body.
-    const form = new URLSearchParams({
-      name,
-      email,
-      company: company || "Not provided",
-      message,
-      _subject: "New portfolio contact",
-      _captcha: "false",
-    });
-    const result = await fetch(`https://formsubmit.co/ajax/${site.email}`, {
+    const result = await fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded", Accept: "application/json" },
-      body: form,
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "Portfolio Contact <onboarding@resend.dev>",
+        to: [site.email],
+        reply_to: email,
+        subject: `Portfolio contact from ${name.replace(/[\r\n]/g, " ")}`,
+        text: `Name: ${name}\nEmail: ${email}\nCompany / Organization: ${company || "Not provided"}\n\nMessage:\n${message}`,
+      }),
       signal: AbortSignal.timeout(10_000),
     });
     if (!result.ok) {
       console.error("Contact email provider returned status", result.status);
-      return response(`Email service rejected the message (status ${result.status}). Please use the email link instead.`, 502);
+      return response("The email service could not accept your message. Please use the email link instead.", 502);
     }
     const outcome: unknown = await result.json().catch(() => null);
-    if (!outcome || typeof outcome !== "object" || !("success" in outcome) || ![true, "true"].includes(outcome.success as boolean | string)) {
+    if (!outcome || typeof outcome !== "object" || !("id" in outcome) || typeof outcome.id !== "string") {
       console.error("Contact email provider did not confirm submission");
-      return response("Email service did not confirm the message. Please use the email link instead.", 502);
+      return response("The email service could not confirm your message. Please use the email link instead.", 502);
     }
     return Response.json({ ok: true }, { headers: { "Cache-Control": "no-store" } });
   } catch {
