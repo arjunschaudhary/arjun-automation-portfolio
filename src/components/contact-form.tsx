@@ -59,7 +59,7 @@ export function ContactForm() {
       <span className="contact-form-hint">Required fields are marked *</span>
     </div>
     <div className="contact-form-feedback" role="status" aria-live="polite">
-      {status === "success" && <p className="contact-form-success"><CheckCircle2 size={19} aria-hidden="true" /> Message sent. Thanks for reaching out—I’ll reply by email.</p>}
+      {status === "success" && <p className="contact-form-success"><CheckCircle2 size={19} aria-hidden="true" /> Message submitted. Thanks for reaching out—I’ll reply by email.</p>}
       {status === "error" && <p className="contact-form-error">{error}</p>}
     </div>
   </form>;
