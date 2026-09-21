@@ -29,9 +29,9 @@ pnpm build
 
 ## Contact form
 
-The Contact page posts to `/api/contact`, which forwards validated submissions to FormSubmit for email delivery to the portfolio address. The provider uses visitors' addresses as Reply-To. The route checks a honeypot and submission timing, and restricts browser requests to the site's own origin.
+The Contact page posts to `/api/contact`, which sends validated submissions to the portfolio inbox through Resend. The visitor's address is set as Reply-To. The route checks a honeypot and submission timing, and restricts browser requests to the site's own origin.
 
-No sending domain or API key is required. The first submission triggers an activation email to the portfolio address; the mailbox owner must confirm it before visitor messages are delivered. The contact email link remains available as a fallback.
+Set `RESEND_API_KEY` as a server-only environment variable on the Vercel portfolio project (Production scope), then redeploy. The Resend account must be registered with the portfolio inbox: Resend's `onboarding@resend.dev` sender can deliver only to the account's own email address without a verified domain. A custom domain is needed to send to other recipients. Do not expose the key as a `NEXT_PUBLIC_` variable or commit it to Git. The contact email link remains available if email service is not configured.
 
 ## Privacy
 
