@@ -4,7 +4,7 @@ A portfolio of AI automation and business systems, with architecture diagrams, o
 
 **Live site:** [arjun-automation-portfolio-jhld.vercel.app](https://arjun-automation-portfolio-jhld.vercel.app)
 
-The site presents six sanitized system case studies, verified integration experience, architecture-led process visuals, and a public Solar EPC application using synthetic data.
+The site presents seven system case studies, verified integration experience, architecture-led process visuals, and a public Solar EPC application using synthetic data.
 
 ## Stack
 
@@ -35,7 +35,7 @@ Set `RESEND_API_KEY` as a server-only environment variable on the Vercel portfol
 
 ## Privacy
 
-No real leads, candidate records, credentials, internal URLs, production configuration, customer details or private repository links are included. Internal system interfaces are recreated with synthetic data.
+Employer-related projects are described only at a high level in the Selected Professional Experience section; no internal demos or repository links are provided for those summaries. No real leads, candidate records, credentials, internal URLs, production configuration, customer details or private repository links should be included. Internal system interfaces are recreated with synthetic data.
 
 ## Attribution
 
