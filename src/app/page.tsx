@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { capabilities, exploring, integrationGroups, projects } from "@/data/portfolio";
+import { capabilities, exploring, integrationGroups, professionalExperience, projects } from "@/data/portfolio";
 import { ProjectCard } from "@/components/project-card";
 import { SystemMap } from "@/components/system-map";
 
@@ -18,6 +18,10 @@ export default function HomePage() {
       <div className="project-grid featured-grid">{featured.map((project, index) => <ProjectCard key={project.slug} project={project} large={index < 2} />)}</div>
       <div className="project-grid compact-projects">{additional.map((project) => <ProjectCard key={project.slug} project={project} />)}</div>
       <div className="section-link"><Link href="/projects">See all projects and technical detail <ArrowRight size={16} /></Link></div>
+    </div></section>
+    <section className="section-pad section-tint"><div className="shell">
+      <div className="section-heading"><div><span className="eyebrow">Selected professional experience</span><h2>Additional automation work across business systems.</h2></div><p>High-level descriptions of work completed in professional settings. Client information, implementation details, data and source code remain private.</p></div>
+      <div className="exploring-grid">{professionalExperience.map((item) => <article key={item.title}><span>Professional work</span><h3>{item.title}</h3><p>{item.summary}</p></article>)}</div>
     </div></section>
     <section className="section-pad section-tint"><div className="shell"><div className="section-heading narrow-heading"><div><span className="eyebrow">Integration experience</span><h2>Tools grouped by the job they perform.</h2></div></div><div className="integration-grid">{integrationGroups.map((group) => <article key={group.label}><h3>{group.label}</h3><ul>{group.items.map((item) => <li key={item}><CheckCircle2 size={15} />{item}</li>)}</ul></article>)}</div></div></section>
     <section className="section-pad"><div className="shell"><div className="section-heading"><div><span className="eyebrow">Currently exploring</span><h2>Active research and early-stage builds.</h2></div><p>These are intentionally separated from completed flagship systems.</p></div><div className="exploring-grid">{exploring.map((item) => <article key={item.title}><span>Exploring</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></div></section>
