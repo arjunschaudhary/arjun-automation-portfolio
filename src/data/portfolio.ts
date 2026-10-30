@@ -6,6 +6,7 @@ export type Project = {
   logic: string[]; integrations: string[]; challenges: string[]; testing: string[];
   result: string; decisions: string[];
   metric?: { value: string; label: string; note: string };
+  externalLinks?: { label: string; url: string }[];
   branches?: { label: string; steps: string[] }[];
 };
 
@@ -47,8 +48,6 @@ export const projects: Project[] = [
     title: "HR Lifecycle / Recruitment Operations System", eyebrow: "Role-based lifecycle application",
     summary: "A production HR operations application spanning candidate intake, reviews, offers, active-intern operations, leave, performance and exit documentation.",
     status: "Production deployment · protected access", statusTone: "live", featured: true,
-    liveUrl: "https://hr-funnel.vercel.app", demoLabel: "Open live application",
-    githubUrl: "https://github.com/arjunschaudhary/hr-lifecycle-hosted",
     stack: ["React", "Vite", "Supabase", "Vercel", "Role-based access", "Storage"],
     sources: ["Candidate form", "HR review"],
     flow: ["Candidate intake", "Lead review", "Probation", "Offer approval", "Active intern", "Leave & performance", "Exit evaluation", "Certificate / LOR"],
@@ -77,9 +76,8 @@ export const projects: Project[] = [
     integrations: ["Zoho", "WebinarJam API", "Meta data", "n8n", "AI calling platform", "AppSheet", "Google Sheets"],
     challenges: ["Identity reconciliation across partially overlapping sources.", "Giving the agent enough context while restricting unnecessary personal data.", "Making exclusion and stop rules observable before production calling begins."],
     testing: ["Source reconciliation and duplicate checks across channel imports.", "Eligibility filters tested before calling handoff.", "Assistant configuration completed; final connection and call-flow validation remains in progress."],
-    result: "A verified snapshot contained 2,275 unified profiles: about 1,339 webinar-linked, 1,512 Meta-linked and 1,021 website-linked. Source counts overlap because one person may engage across channels.",
+    result: "Developed a cross-channel data reconciliation layer and AI calling handoff in a protected professional environment. Production records and performance metrics are excluded from this portfolio.",
     decisions: ["Separate profile assembly, qualification and calling into auditable stages.", "Use structured knowledge plus lead context so the agent does not call blindly.", "Describe current rollout honestly: the data layer and assistant are built; connection testing is still underway."],
-    metric: { value: "2,275", label: "unified lead profiles", note: "Verified snapshot; channel counts overlap." },
   },
   {
     slug: "webinar-engagement-automation-platform", priority: 4,
@@ -136,10 +134,40 @@ export const projects: Project[] = [
     decisions: ["Retain human approval before agreement execution.", "Make unsubscribe and not-interested paths terminal.", "Automate preparation and routing around—not instead of—the accountable human decision."],
     branches: [{ label: "Meeting", steps: ["Reply", "Booking link", "Calendar booking", "Suppress outreach"] }, { label: "Partnership", steps: ["Collect details", "Human approval", "Prepare agreement", "Odoo Sign"] }, { label: "Stop / route", steps: ["Not interested", "Unsubscribe", "General query", "Update record"] }],
   },
+  {
+    slug: "youtube-automation-studio", priority: 7,
+    title: "YouTube Automation Studio", eyebrow: "Personal project · video workflows",
+    summary: "Two independently developed pipelines for short-form video production, quality checks and YouTube delivery—covering Pokémon battle analysis and cricket scenarios.",
+    status: "Personal builds · publishing automation being validated", statusTone: "progress", featured: true,
+    githubUrl: "https://github.com/a7arjun/auto-shorts-studio",
+    externalLinks: [
+      { label: "Cricket GitHub repository", url: "https://github.com/a7arjun/Cricket" },
+      { label: "PokéMotion Tales channel", url: "https://www.youtube.com/channel/UCPNKs86kz0A8b9CH75-EY0w" },
+      { label: "Cricket Ka Muqabla channel", url: "https://www.youtube.com/@cricket-y1j" },
+    ],
+    stack: ["Python", "FFmpeg", "GitHub Actions", "YouTube API", "AI narration", "Automated tests"],
+    sources: ["Original content rules", "Public game and sports references"],
+    flow: ["Select content", "Prepare assets", "Build scenes", "Render video", "Run checks", "Review output", "Prepare upload"],
+    overview: "A personal portfolio project exploring repeatable short-form video production. The Pokémon and cricket systems use separate repositories and distinct content formats. Rendering, validation and delivery controls are documented; publishing is not represented as a fully unattended production service.",
+    problem: "Creating video episodes consistently involves repeatable scripting, asset preparation, narration, rendering, review and publication. The goal was to reduce repetitive work while maintaining creative and operational control.",
+    role: "I planned the content rules, developed the workflow automation, connected rendering and validation components, created test assets, and worked on YouTube upload and scheduling integration.",
+    logic: ["Keep content selection and rendering separate from publication.", "Generate scenes and narration from structured inputs.", "Run validation before allowing a delivery job to proceed.", "Check prior video IDs and queue state to avoid duplicate uploads.", "Require review or an explicit publish gate rather than assuming a successful upload."],
+    integrations: ["Python", "FFmpeg", "GitHub Actions", "YouTube Data API", "Speech synthesis", "Google Sheets / Drive"],
+    challenges: ["Balancing consistent visual templates with diverse episodes.", "Separating prepared content from confirmed uploaded or published videos.", "Handling expiring OAuth authorization and incomplete upload outcomes without duplicates."],
+    testing: ["The Pokémon repository documents local renders and automated mechanics tests.", "The cricket repository documents scheduling and deduplication tests.", "Public upload scheduling remains dependent on verified authorization and an available runner."],
+    result: "Built two personal content pipelines and published sample content separately. Rendering and test workflows are documented in the public repositories; always-on unattended YouTube publishing is not yet claimed as operational.",
+    decisions: ["Use separate repositories and publishing ledgers for the two channels.", "Describe published samples separately from the status of automated uploading.", "Make review, safety checks and publication opt-in explicit."],
+  },
+];
+
+export const professionalExperience = [
+  { title: "Payment Recovery Automation", summary: "Developed and tested event-driven payment recovery and follow-up processes with an emphasis on reliable execution." },
+  { title: "SEO Monitoring & Website Audits", summary: "Worked on automated website auditing and monitoring workflows to help teams identify technical SEO issues." },
+  { title: "Social Engagement Automation", summary: "Built and tested social-media comment-to-message automation and follow-up experiences." },
+  { title: "AI Calling & Appointment Coordination", summary: "Worked on AI-assisted outreach and appointment coordination integrated with existing business processes." },
 ];
 
 export const exploring = [
-  { title: "Instagram Automation", text: "Meta Developer APIs, webhooks, comment-to-DM journeys and resource delivery within platform restrictions." },
   { title: "Freshdesk Communication Consolidation", text: "A shared communication history across WhatsApp, email, webinar forms and feedback for Sales and Delivery views." },
   { title: "Knowledge Source Aggregation & AI Retrieval", text: "Source inventory, automated ingestion and a centralized knowledge layer for future grounded AI retrieval." },
   { title: "AI Blog Production System", text: "Research, SEO architecture, source grounding, internal linking, content generation, images and quality checks—still in development." },
